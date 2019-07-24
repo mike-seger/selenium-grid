@@ -1,0 +1,13 @@
+{
+    "browsers": [
+        { "browserName": "internet explorer", "version": "8", "platform": "XP" },
+        { "browserName": "chrome", "version": "latest" },
+        { "browserName": "firefox", "version": "latest" }
+    ],
+    "remoteCfg": {
+        "protocol": "http:",
+        "hostname": "127.0.0.1",
+        "port": "4444",
+        "path": "/wd/hub"
+    }
+}
