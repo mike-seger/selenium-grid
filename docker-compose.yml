@@ -14,6 +14,11 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
+      - SCREEN_WIDTH=1366
+      - SCREEN_HEIGHT=768
+      - SCREEN_DEPTH=24
+      - SCREEN_DPI=74
+      - START_XVFB=false
   firefox:
     image: selenium/node-firefox
     volumes:
@@ -23,3 +28,8 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
+      - SCREEN_WIDTH=1366
+      - SCREEN_HEIGHT=768
+      - SCREEN_DEPTH=24
+      - SCREEN_DPI=74
+      - START_XVFB=false
