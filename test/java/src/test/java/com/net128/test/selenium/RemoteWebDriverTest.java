@@ -12,8 +12,8 @@ public class RemoteWebDriverTest extends TestCase {
     private RemoteWebDriver firefox;
 
     public void setUp() throws Exception {
-        chrome = new RemoteWebDriver(new URL("http://server1:4444/wd/hub"), chromeCapabilities);
-        firefox = new RemoteWebDriver(new URL("http://server1:4444/wd/hub"), firefoxCapabilities);
+        chrome = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromeCapabilities);
+        firefox = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), firefoxCapabilities);
     }
 
     public void testChrome() {
