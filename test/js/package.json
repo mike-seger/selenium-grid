@@ -1,0 +1,15 @@
+{
+    "name": "RemoteWebDriverTest",
+    "version": "1.0.0",
+    "scripts": {
+        "test": "mocha RemoteWebDriverTest.js",
+        "test1": "node RemoteWebDriverTest.js"
+    },
+    "devDependencies": {
+        "selenium-webdriver": "4.0.0-alpha.4",
+        "test.it": "1.2.3",
+        "test.it-nodejs": "1.0.1",
+        "mocha": "6.2.0",
+        "chai": "4.2.0"
+    }
+}
