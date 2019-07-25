@@ -18,7 +18,6 @@ services:
       - SCREEN_HEIGHT=768
       - SCREEN_DEPTH=24
       - SCREEN_DPI=74
-      - START_XVFB=false
   firefox:
     image: selenium/node-firefox
     volumes:
@@ -32,4 +31,3 @@ services:
       - SCREEN_HEIGHT=768
       - SCREEN_DEPTH=24
       - SCREEN_DPI=74
-      - START_XVFB=false

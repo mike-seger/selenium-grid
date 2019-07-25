@@ -1,4 +1,4 @@
-# selenium-grid1
+# selenium-grid
 
 Running a Selenium Grid with Firefox and Chrome in headless mode in 2
 minutes.  
@@ -7,9 +7,12 @@ minutes.
 # Using
 
 ```
+# Start grid with 1 node each
 $ docker-compose up
-# or
+# Start grid with 15 nodes each
 $ docker-compose scale chrome=15 firefox=15
+# Stop grid
+$ docker-compose down
 ```
 
 # Links
