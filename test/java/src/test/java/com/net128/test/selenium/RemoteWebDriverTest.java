@@ -2,7 +2,6 @@ package com.net128.test.selenium;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.TestCase;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -14,11 +13,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.HashMap;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class RemoteWebDriverTest extends TestCase {
     private ChromeOptions chromeOptions = new ChromeOptions();
     private FirefoxOptions firefoxOptions = new FirefoxOptions();
@@ -27,10 +26,12 @@ public class RemoteWebDriverTest extends TestCase {
     private HashMap<String, String> configuration;
     private String screenshotDir;
 
+    @SuppressWarnings("unused")
     public void setUp() throws Exception {
         configuration=loadConfiguration();
 
         File dir=new File(configuration.get("screenshotDestination"));
+
         dir.mkdirs();
         screenshotDir=dir.getAbsolutePath();
 
@@ -63,11 +64,12 @@ public class RemoteWebDriverTest extends TestCase {
             .getResource("/"+configName), HashMap.class);
         try (FileInputStream fis=new FileInputStream(configName))
         { mapper.readerForUpdating(configuration).readValue(fis); }
-        catch(FileNotFoundException e) {}
+        catch(FileNotFoundException e) { /**/ }
         catch(Exception e) { e.printStackTrace(); }
         return configuration;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     private File takeScreenshot(RemoteWebDriver driver, String namePrefix) throws IOException {
         Augmenter augmenter = new Augmenter();
         TakesScreenshot ts = (TakesScreenshot) augmenter.augment(driver);
