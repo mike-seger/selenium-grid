@@ -1,7 +1,9 @@
 package com.net128.test.selenium;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import junit.framework.TestCase;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -17,49 +19,53 @@ import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.HashMap;
 
+import static org.junit.Assert.assertEquals;
+
 @SuppressWarnings("ResultOfMethodCallIgnored")
-public class RemoteWebDriverTest extends TestCase {
-    private ChromeOptions chromeOptions = new ChromeOptions();
-    private FirefoxOptions firefoxOptions = new FirefoxOptions();
-    private RemoteWebDriver chrome;
-    private RemoteWebDriver firefox;
-    private HashMap<String, String> configuration;
-    private String screenshotDir;
+public class RemoteWebDriverTest {
+    private static RemoteWebDriver chrome;
+    private static RemoteWebDriver firefox;
+    private static HashMap<String, String> configuration;
+    private static String screenshotDir;
 
     @SuppressWarnings("unused")
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
         configuration=loadConfiguration();
 
         File dir=new File(configuration.get("screenshotDestination"));
         dir.mkdirs();
         screenshotDir=dir.getAbsolutePath();
 
-        chrome = new RemoteWebDriver(new URL(configuration.get("hubBaseUrl")+"/wd/hub"), chromeOptions);
-        firefox = new RemoteWebDriver(new URL(configuration.get("hubBaseUrl")+"/wd/hub"), firefoxOptions);
+        chrome = new RemoteWebDriver(new URL(configuration.get("hubBaseUrl")+"/wd/hub"), new ChromeOptions());
+        firefox = new RemoteWebDriver(new URL(configuration.get("hubBaseUrl")+"/wd/hub"), new FirefoxOptions());
     }
 
+    @Test
     public void testChrome() throws IOException {
         chrome.get(configuration.get("homePage"));
         assertEquals(configuration.get("expectedTitle"), chrome.getTitle());
         takeScreenshot(chrome, configuration.get("chrome"));
     }
 
+    @Test
     public void testFirefox() throws IOException {
         firefox.get(configuration.get("homePage"));
         assertEquals(configuration.get("expectedTitle"), firefox.getTitle());
         takeScreenshot(firefox, configuration.get("firefox"));
     }
 
-    public void tearDown() {
+    @AfterClass
+    public static void tearDownAfterClass() {
         chrome.quit();
         firefox.quit();
     }
 
-    private HashMap<String, String> loadConfiguration() throws IOException {
+    private static HashMap<String, String> loadConfiguration() throws IOException {
         ObjectMapper mapper=new ObjectMapper();
         String configName = "configuration.json";
         @SuppressWarnings("unchecked")
-        HashMap<String, String> configuration = mapper.readValue(getClass()
+        HashMap<String, String> configuration = mapper.readValue(RemoteWebDriverTest.class
             .getResource("/"+configName), HashMap.class);
         try (FileInputStream fis=new FileInputStream(configName))
         { mapper.readerForUpdating(configuration).readValue(fis); }
@@ -79,9 +85,6 @@ public class RemoteWebDriverTest extends TestCase {
         String destName=namePrefix + "-" + getDateString() + ".png";
         File destFile=new File(screenshotDir, destName);
         Files.move(Paths.get(file.getAbsolutePath()), Paths.get(destFile.getAbsolutePath()));
-        if(!destFile.exists()) {
-            throw new RuntimeException("Could move screenshot from: "+file+" to "+destFile);
-        }
         return destFile;
     }
 
