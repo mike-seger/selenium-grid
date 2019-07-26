@@ -12,17 +12,18 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class RemoteWebDriverTest extends TestCase {
     private ChromeOptions chromeOptions = new ChromeOptions();
     private FirefoxOptions firefoxOptions = new FirefoxOptions();
     private RemoteWebDriver chrome;
     private RemoteWebDriver firefox;
-    private Map<String,String> configuration;
-    private static String configName="configuration.json";
+    private HashMap<String, String> configuration;
 
     public void setUp() throws Exception {
         ObjectMapper mapper=new ObjectMapper();
+        String configName = "configuration.json";
         configuration = mapper.readValue(getClass()
             .getResource(configName), HashMap.class);
         try (FileInputStream fis=new FileInputStream(configName))
