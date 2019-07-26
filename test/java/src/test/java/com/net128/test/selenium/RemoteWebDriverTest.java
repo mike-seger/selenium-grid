@@ -28,7 +28,6 @@ public class RemoteWebDriverTest {
     private static HashMap<String, String> configuration;
     private static String screenshotDir;
 
-    @SuppressWarnings("unused")
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         configuration=loadConfiguration();
