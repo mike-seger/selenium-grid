@@ -1,5 +1,8 @@
 {
   "hubBaseUrl": "http://localhost:4444",
   "homePage": "http://www.google.com",
-  "expectedTitle": "Google"
+  "expectedTitle": "Google",
+  "chrome": "chrome",
+  "firefox": "firefox",
+  "screenshotDestination": "screenshots"
 }
