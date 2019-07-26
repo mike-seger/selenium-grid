@@ -75,7 +75,9 @@ public class RemoteWebDriverTest extends TestCase {
         TakesScreenshot ts = (TakesScreenshot) augmenter.augment(driver);
         File file = ts.getScreenshotAs(OutputType.FILE);
         String destName=namePrefix + "-" +
-            Instant.now().toString().replaceAll("[:.-]", "")+".png";
+            Instant.now().toString()
+                .replaceAll("[.][0-9]]", "")
+                .replaceAll("[:.-]", "")+".png";
         File destFile=new File(screenshotDir, destName);
         Files.move(Paths.get(file.getAbsolutePath()), Paths.get(destFile.getAbsolutePath()));
         if(!destFile.exists()) {
