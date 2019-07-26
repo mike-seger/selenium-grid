@@ -11,8 +11,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class RemoteWebDriverTest extends TestCase {
     private ChromeOptions chromeOptions = new ChromeOptions();
@@ -25,7 +23,7 @@ public class RemoteWebDriverTest extends TestCase {
         ObjectMapper mapper=new ObjectMapper();
         String configName = "configuration.json";
         configuration = mapper.readValue(getClass()
-            .getResource(configName), HashMap.class);
+            .getResource("/"+configName), HashMap.class);
         try (FileInputStream fis=new FileInputStream(configName))
             { mapper.readerForUpdating(configuration).readValue(fis); }
         catch(FileNotFoundException e) {}
