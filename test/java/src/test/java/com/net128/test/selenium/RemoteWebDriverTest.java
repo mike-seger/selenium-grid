@@ -31,7 +31,6 @@ public class RemoteWebDriverTest extends TestCase {
         configuration=loadConfiguration();
 
         File dir=new File(configuration.get("screenshotDestination"));
-
         dir.mkdirs();
         screenshotDir=dir.getAbsolutePath();
 
@@ -73,11 +72,11 @@ public class RemoteWebDriverTest extends TestCase {
     private File takeScreenshot(RemoteWebDriver driver, String namePrefix) throws IOException {
         Augmenter augmenter = new Augmenter();
         TakesScreenshot ts = (TakesScreenshot) augmenter.augment(driver);
-        File file = ts.getScreenshotAs(OutputType.FILE);
-        String destName=namePrefix + "-" +
-            Instant.now().toString()
-                .replaceAll("[.][0-9]]", "")
-                .replaceAll("[:.-]", "")+".png";
+        return moveScreenshot(ts.getScreenshotAs(OutputType.FILE), namePrefix);
+    }
+
+    private File moveScreenshot(File file, String namePrefix) throws IOException {
+        String destName=namePrefix + "-" + getDateString() + ".png";
         File destFile=new File(screenshotDir, destName);
         Files.move(Paths.get(file.getAbsolutePath()), Paths.get(destFile.getAbsolutePath()));
         if(!destFile.exists()) {
@@ -85,5 +84,11 @@ public class RemoteWebDriverTest extends TestCase {
         }
         return destFile;
     }
-}
 
+    private String getDateString() {
+        return Instant.now().toString()
+            .replaceAll("T", "_")
+            .replaceAll("[.][0-9]*Z", "")
+            .replaceAll("[:-]", "");
+    }
+}
