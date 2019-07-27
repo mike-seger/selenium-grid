@@ -3,6 +3,7 @@ const {Builder, By, until} = require('selenium-webdriver');
 const { expect } = require('chai');
 
 describe('RemoteWebDriverTest', function() {
+  var chrome;
   var firefox;
   var configuration;
   var screenshotDir;
