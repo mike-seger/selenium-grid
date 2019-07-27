@@ -6,7 +6,32 @@ describe('RemoteWebDriverTest', function() {
   var firefox;
   var configuration;
   var screenshotDir;
-  
+
+  before(async function () {
+    configuration = loadConfiguration();
+    screenshotDir = configuration.screenshotDestination.replace('/', '')+'/';
+    try { fs.mkdirSync(screenshotDir); } catch(err) {}
+    chrome = await new Builder().forBrowser('chrome').usingServer(configuration.hubUrl).build();
+    firefox = await new Builder().forBrowser('firefox').usingServer(configuration.hubUrl).build();
+  });
+
+  it('Test Chrome', async function () {
+    await chrome.get(configuration.homePage);
+    expect(await chrome.getTitle()).to.equal(configuration.expectedTitle);
+    await takeScreenShot(chrome, configuration.chrome);
+  });
+
+  it('Test Firefox', async function () {
+    await firefox.get(configuration.homePage);
+    expect(await firefox.getTitle()).to.equal(configuration.expectedTitle);
+    await takeScreenShot(firefox, configuration.firefox);
+  });
+
+  after(async () => { 
+    await chrome.quit();
+    await firefox.quit(); 
+  });
+
   function getDateString() {
     return new Date().toISOString().replace(/[Z:-]/g, "")
       .replace(/[.][0-9]*$/g, "").replace("T", "-");
@@ -32,31 +57,4 @@ describe('RemoteWebDriverTest', function() {
     console.log(configuration);
     return configuration;
   }
-
-  before(async function () {
-    configuration = loadConfiguration();
-    screenshotDir = configuration.screenshotDestination.replace('/', '')+'/';
-    try { fs.mkdirSync(screenshotDir); } catch(err) {}
-    firefox = await new Builder().forBrowser('firefox').usingServer(configuration.hubUrl).build();
-    chrome = await new Builder().forBrowser('chrome').usingServer(configuration.hubUrl).build();
-  });
-
-  it('Test Chrome', async function () {
-    await chrome.get(configuration.homePage);
-    const title = await chrome.getTitle();
-    expect(title).to.equal(configuration.expectedTitle);
-    await takeScreenShot(chrome, 'chrome');
-  });
-
-  it('Test Firefox', async function () {
-    await firefox.get(configuration.homePage);
-    const title = await firefox.getTitle();
-    expect(title).to.equal(configuration.expectedTitle);
-    await takeScreenShot(firefox, 'firefox');
-  });
-
-  after(async () => { 
-    await chrome.quit();
-    await firefox.quit(); 
-  });
 });
