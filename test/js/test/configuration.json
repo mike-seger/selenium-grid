@@ -1,0 +1,8 @@
+{
+    "hubUrl": "http://localhost:4444/wd/hub",
+    "homePage": "http://www.google.com",
+    "expectedTitle": "Google",
+    "chrome": "chrome",
+    "firefox": "firefox",
+    "screenshotDestination": "screenshots"
+}
