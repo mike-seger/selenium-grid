@@ -18,11 +18,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 import static org.junit.Assert.assertEquals;
 
@@ -63,8 +67,9 @@ public class RemoteWebDriverTest {
     }
 
     private String getDateString() {
-        return DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss")
-                .format(ZonedDateTime.of(LocalDateTime.now(), ZoneOffset.UTC));
+        SimpleDateFormat f=new SimpleDateFormat("yyyyMMdd-HHmmss");
+        f.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return f.format(new Date());
     }
 
     @SuppressWarnings("UnusedReturnValue")
