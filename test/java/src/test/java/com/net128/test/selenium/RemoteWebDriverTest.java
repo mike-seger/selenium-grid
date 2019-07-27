@@ -1,6 +1,7 @@
 package com.net128.test.selenium;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -75,7 +76,7 @@ public class RemoteWebDriverTest {
     }
 
     private static HashMap<String, String> loadConfiguration() throws IOException {
-        ObjectMapper mapper=new ObjectMapper();
+        ObjectMapper mapper=new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         String configName = "configuration.json";
         @SuppressWarnings("unchecked")
         HashMap<String, String> configuration = mapper.readValue(RemoteWebDriverTest.class
@@ -83,6 +84,7 @@ public class RemoteWebDriverTest {
         if(new File(configName).exists())
             try (FileInputStream fis=new FileInputStream(configName))
             { mapper.readerForUpdating(configuration).readValue(fis); }
+        System.out.println("Configuration: "+mapper.writeValueAsString(configuration));
         return configuration;
     }
 }

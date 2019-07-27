@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {Builder, By, until} = require('selenium-webdriver');
+const { Builder } = require('selenium-webdriver');
 const { expect } = require('chai');
 
 describe('RemoteWebDriverTest', function() {
