@@ -1,24 +1,12 @@
 {
-    "name": "RemoteWebDriverTest",
+    "name": "selenium.grid.test",
     "version": "1.0.0",
     "scripts": {
-        "test": "mocha --timeout 20000 -R spec",
-        "t2": "node test/index.js",
-        "wdio": "wdio test/wdio.conf.js"
+        "test": "mocha --timeout 20000 -R spec"
     },
     "devDependencies": {
-        "@wdio/cli": "5.11.10",
-        "@wdio/local-runner": "^5.11.10",
-        "@wdio/mocha-framework": "^5.11.0",
-        "@wdio/spec-reporter": "^5.11.7",
-        "@wdio/sync": "^5.11.10",
         "chai": "4.2.0",
-        "chromedriver": "^75.1.0",
         "mocha": "^6.2.0",
-        "selenium-webdriver": "4.0.0-alpha.4",
-        "test.it": "1.2.3",
-        "test.it-nodejs": "1.0.1",
-        "wdio-chromedriver-service": "^5.0.2",
-        "webdriverio": "5.11.10"
+        "selenium-webdriver": "4.0.0-alpha.4"
     }
 }

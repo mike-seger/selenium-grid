@@ -17,6 +17,12 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
@@ -66,10 +72,9 @@ public class RemoteWebDriverTest {
         @SuppressWarnings("unchecked")
         HashMap<String, String> configuration = mapper.readValue(RemoteWebDriverTest.class
             .getResource("/"+configName), HashMap.class);
-        try (FileInputStream fis=new FileInputStream(configName))
-        { mapper.readerForUpdating(configuration).readValue(fis); }
-        catch(FileNotFoundException e) { /**/ }
-        catch(Exception e) { e.printStackTrace(); }
+        if(new File(configName).exists())
+            try (FileInputStream fis=new FileInputStream(configName);)
+                { mapper.readerForUpdating(configuration).readValue(fis); }
         return configuration;
     }
 
@@ -88,9 +93,6 @@ public class RemoteWebDriverTest {
     }
 
     private String getDateString() {
-        return Instant.now().toString()
-            .replaceAll("T", "_")
-            .replaceAll("[.][0-9]*Z", "")
-            .replaceAll("[:-]", "");
+        return DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss").format(ZonedDateTime.of(LocalDateTime.now(), ZoneOffset.UTC));
     }
 }
