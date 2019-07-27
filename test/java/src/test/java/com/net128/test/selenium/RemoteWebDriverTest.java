@@ -1,5 +1,6 @@
 package com.net128.test.selenium;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.AfterClass;
@@ -78,9 +79,8 @@ public class RemoteWebDriverTest {
     private static HashMap<String, String> loadConfiguration() throws IOException {
         ObjectMapper mapper=new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         String configName = "configuration.json";
-        @SuppressWarnings("unchecked")
         HashMap<String, String> configuration = mapper.readValue(RemoteWebDriverTest.class
-            .getResource("/"+configName), HashMap.class);
+            .getResource("/"+configName), new TypeReference<HashMap<String,String>>() {});
         if(new File(configName).exists())
             try (FileInputStream fis=new FileInputStream(configName))
             { mapper.readerForUpdating(configuration).readValue(fis); }
