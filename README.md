@@ -8,7 +8,7 @@ minutes.
 
 ```
 # Start grid with 1 node each
-$ docker-compose up
+$ docker-compose up -d
 
 # Start grid with 15 nodes each
 $ docker-compose scale chrome=15 firefox=15
