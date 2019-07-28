@@ -1,6 +1,6 @@
 # selenium-grid
 
-Running a Selenium Grid with Firefox and Chrome browsers and drivers in 5
+Running a Selenium grid with Firefox and Chrome browsers and drivers in 5
 minutes.  
 
  
