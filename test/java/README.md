@@ -1,7 +1,7 @@
 # Usage
 
 ```
-mvn clean test
+gradle clean test
 ```
 
 # Links
