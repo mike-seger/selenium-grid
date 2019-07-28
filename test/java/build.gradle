@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'com.adarshr.test-logger' version '1.7.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.seleniumhq.selenium:selenium-api:3.141.59'
+    compile 'org.seleniumhq.selenium:selenium-remote-driver:3.141.59'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.9.1'
+    compile 'com.github.skjolber.jackson:jackson-syntax-highlight:1.0.4'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile 'org.slf4j:jul-to-slf4j:1.7.26'
+    
+    testImplementation("junit:junit:4.12")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.5.1")
+    testCompile 'org.seleniumhq.selenium:selenium-java:3.141.59'
+}
+
+group = 'net128.com'
+version = '1.0.0'
+description = 'Selenium Grid Test'
+sourceCompatibility = '1.8'
+
+test {
+//    testLogging.showStandardStreams = true
+    useJUnitPlatform()
+/*    afterTest { desc, result -> 
+        logger.quiet "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+    }
+*/    testlogger {
+        theme 'mocha'
+	showStandardStreams true
+    }
+
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+//    systemProperty 'junit.jupiter.conditions.deactivate', '*'
+//    systemProperties = [
+//        'junit.jupiter.extensions.autodetection.enabled': 'true',
+//        'junit.jupiter.testinstance.lifecycle.default': 'per_class'
+//    ]
+}
+

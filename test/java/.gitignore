@@ -1,2 +1,6 @@
 /configuration.json
 /screenshots
+/build
+/gradle
+.gradle
+gradlew*

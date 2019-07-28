@@ -19,13 +19,13 @@ describe('RemoteWebDriverTest', function() {
   it('Test Chrome', async function () {
     await chrome.get(configuration.homePage);
     expect(await chrome.getTitle()).to.equal(configuration.expectedTitle);
-    await takeScreenShot(chrome, configuration.chrome);
+    await takeScreenShot(chrome, configuration.labelChrome);
   });
 
   it('Test Firefox', async function () {
     await firefox.get(configuration.homePage);
     expect(await firefox.getTitle()).to.equal(configuration.expectedTitle);
-    await takeScreenShot(firefox, configuration.firefox);
+    await takeScreenShot(firefox, configuration.labelFirefox);
   });
 
   after(async () => { 
