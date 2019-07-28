@@ -1,6 +1,6 @@
 # selenium-grid
 
-Running a Selenium Grid with Firefox and Chrome browsers and drivers in 2
+Running a Selenium grid with Firefox and Chrome browsers and drivers in 5
 minutes.  
 
  
@@ -8,7 +8,7 @@ minutes.
 
 ```
 # Start grid with 1 node each
-$ docker-compose up
+$ docker-compose up -d
 
 # Start grid with 15 nodes each
 $ docker-compose scale chrome=15 firefox=15
@@ -19,5 +19,6 @@ $ docker-compose down
 
 # Links
 https://github.com/SeleniumHQ/docker-selenium  
+https://jitpack.io/p/SeleniumHQ/docker-selenium  
 https://hub.docker.com/u/selenium  
 https://robotninja.com/blog/introduction-using-selenium-docker-containers-end-end-testing/
