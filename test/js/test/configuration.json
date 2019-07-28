@@ -1,6 +1,23 @@
 {
     "hubUrl": "http://localhost:4444/wd/hub",
     "homePage": "http://www.google.com",
+    "log4jsConfiguration": {
+        "appenders": { 
+            "console": { 
+                "type": "stdout",
+                "layout": { 
+                    "type": "pattern",
+                    "pattern": "  \u001b[35m%d{ISO8601_WITH_TZ_OFFSET}\u001b[0m \u001b[34m%p\u001b[0m \u001b[36m%c\u001b[0m %m"
+                } 
+            }
+        },
+        "categories": { 
+            "default": { 
+                "appenders": ["console"], "level": "info" 
+            }
+        },
+        "replaceConsole": true
+    },
     "expectedTitle": "Google",
     "chrome": "chrome",
     "firefox": "firefox",

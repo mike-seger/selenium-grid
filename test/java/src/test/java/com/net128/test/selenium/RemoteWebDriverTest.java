@@ -33,6 +33,7 @@ import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.TimeZone;
 import java.util.logging.Level;
 
@@ -40,10 +41,10 @@ import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class RemoteWebDriverTest {
-    private static final Logger logger = LoggerFactory.getLogger(RemoteWebDriverTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(RemoteWebDriverTest.class.getSimpleName());
     private static RemoteWebDriver chrome;
     private static RemoteWebDriver firefox;
-    private static HashMap<String, String> configuration;
+    private static LinkedHashMap<String, String> configuration;
     private static File screenshotDir;
 
     @BeforeClass
@@ -51,14 +52,11 @@ public class RemoteWebDriverTest {
         configuration=loadConfiguration();
         screenshotDir=new File(configuration.get("screenshotDestination"));
         screenshotDir.mkdirs();
+        logger.info("Setting up drivers");
         chrome = new RemoteWebDriver(new URL(configuration.get("hubUrl")), new ChromeOptions());
         firefox = new RemoteWebDriver(new URL(configuration.get("hubUrl")), new FirefoxOptions());
+        logger.info("Done setting up drivers");
     }
-
-//    @Before
-//    public void beforeMethod(Method method) {
-//        logger.info("Starting test - " + method.getName());
-//    }
 
     @Test
     public void testChrome() throws IOException {
@@ -76,8 +74,10 @@ public class RemoteWebDriverTest {
 
     @AfterClass
     public static void teardown() {
+        logger.info("Quitting drivers");
         chrome.quit();
         firefox.quit();
+        logger.info("Done quitting drivers");
     }
 
     private String getDateString() {
@@ -95,15 +95,15 @@ public class RemoteWebDriverTest {
         return destFile;
     }
 
-    private static HashMap<String, String> loadConfiguration() throws IOException {
+    private static LinkedHashMap<String, String> loadConfiguration() throws IOException {
         ObjectMapper mapper=new ObjectMapper();
         String configName = "configuration.json";
-        HashMap<String, String> configuration = mapper.readValue(RemoteWebDriverTest.class
-            .getResource("/"+configName), new TypeReference<HashMap<String,String>>() {});
+        LinkedHashMap<String, String> configuration = mapper.readValue(RemoteWebDriverTest.class
+            .getResource("/"+configName), new TypeReference<LinkedHashMap<String,String>>() {});
         if(new File(configName).exists())
             try (FileInputStream fis=new FileInputStream(configName))
             { mapper.readerForUpdating(configuration).readValue(fis); }
-        logger.info("\nConfiguration: {}", toJson(configuration));
+        logger.info("Used Configuration:\n{}", toJson(configuration));
         return configuration;
     }
 

@@ -26,23 +26,10 @@ description = 'Selenium Grid Test'
 sourceCompatibility = '1.8'
 
 test {
-//    testLogging.showStandardStreams = true
     useJUnitPlatform()
-/*    afterTest { desc, result -> 
-        logger.quiet "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
-    }
-*/    testlogger {
+    // https://github.com/radarsh/gradle-test-logger-plugin
+    testlogger {
         theme 'mocha'
-	showStandardStreams true
+        showStandardStreams true
     }
-
-    testLogging {
-        events "passed", "skipped", "failed", "standardOut", "standardError"
-    }
-//    systemProperty 'junit.jupiter.conditions.deactivate', '*'
-//    systemProperties = [
-//        'junit.jupiter.extensions.autodetection.enabled': 'true',
-//        'junit.jupiter.testinstance.lifecycle.default': 'per_class'
-//    ]
 }
-
