@@ -15,13 +15,15 @@ describe('RemoteWebDriverTest', function() {
     log4js.configure(configuration.log4jsConfiguration);
     delete configuration.log4jsConfiguration;
     logger=log4js.getLogger("RemoteWebDriverTest");
+    console.log("");
     logger.info("\n"+colorJson(configuration));
     screenshotDir = configuration.screenshotDestination.replace('/', '')+'/';
     try { fs.mkdirSync(screenshotDir); } catch(err) {}
+    console.log("");
     logger.info("Setting up drivers");
     chrome = await new Builder().forBrowser('chrome').usingServer(configuration.hubUrl).build();
     firefox = await new Builder().forBrowser('firefox').usingServer(configuration.hubUrl).build();
-    logger.info("Done setting up drivers");
+    logger.info("Done setting up drivers\n");
   });
 
   it('Test Chrome', async function () {
@@ -36,7 +38,8 @@ describe('RemoteWebDriverTest', function() {
     await takeScreenShot(firefox, configuration.labelFirefox);
   });
 
-  after(async () => { 
+  after(async () => {
+    console.log("");
     logger.info("Quitting drivers");
     await chrome.quit();
     await firefox.quit();
