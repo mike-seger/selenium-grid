@@ -16,7 +16,7 @@ describe('RemoteWebDriverTest', function() {
     delete configuration.log4jsConfiguration;
     logger=log4js.getLogger("RemoteWebDriverTest");
     console.log("");
-    logger.info("\n"+colorJson(configuration));
+    logger.info("Active Configuration:\n"+colorJson(configuration));
     screenshotDir = configuration.screenshotDestination.replace('/', '')+'/';
     try { fs.mkdirSync(screenshotDir); } catch(err) {}
     console.log("");
