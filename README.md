@@ -19,5 +19,6 @@ $ docker-compose down
 
 # Links
 https://github.com/SeleniumHQ/docker-selenium  
+https://jitpack.io/p/SeleniumHQ/docker-selenium  
 https://hub.docker.com/u/selenium  
 https://robotninja.com/blog/introduction-using-selenium-docker-containers-end-end-testing/
