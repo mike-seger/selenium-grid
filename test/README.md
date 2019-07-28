@@ -1,7 +1,7 @@
 # Test examples for several languages
-Every provided example contains a smoke test of the selenium grid and its supported drivers within its own subdirectory.  
+Every subdirectory provides a smoke test of the selenium grid and its supported drivers for a language such as Java or JS.  
 
-Each directory has its own instructions and contains the default **configuration.json**. Here's an example:
+Each has its own instructions and contains a **configuration.json** within the source directory. Here's an example:
 ```
 {
     "hubUrl": "http://localhost:4444/wd/hub",
@@ -12,7 +12,7 @@ Each directory has its own instructions and contains the default **configuration
     "screenshotDestination": "screenshots"
 }
 ```
-You can override any of the configuration values by providing your own **configuration.json** in the root of each directory. This will be merged with the default configuration when running the tests and is ignored by **.gitignore**.
+This will be used by default. You can override any of the configuration values by providing your own **configuration.json** in the the location of the according README.md. This will be merged with the default configuration when running the tests and is ignored by **.gitignore**.
 
 # Links
 https://seleniumhq.github.io/docs/  
