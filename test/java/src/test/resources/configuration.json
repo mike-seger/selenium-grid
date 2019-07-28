@@ -2,7 +2,19 @@
   "hubUrl": "http://localhost:4444/wd/hub",
   "homePage": "http://www.google.com",
   "expectedTitle": "Google",
-  "labelChrome": "chrome",
-  "labelFirefox": "firefox",
-  "screenshotDestination": "screenshots"
+  "screenshotDestination": "screenshots",
+  "browsers": {
+    "chrome": {
+      "dimension": {
+        "width": 1980,
+        "height": 1024
+      }
+    },
+    "firefox": {
+      "dimension": {
+        "width": 1980,
+        "height": 982
+      }
+    }
+  }
 }

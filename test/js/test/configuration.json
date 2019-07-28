@@ -19,7 +19,19 @@
         "replaceConsole": true
     },
     "expectedTitle": "Google",
-    "chrome": "chrome",
-    "firefox": "firefox",
-    "screenshotDestination": "screenshots"
+    "screenshotDestination": "screenshots",
+    "browsers": {
+      "chrome": {
+        "dimension": {
+          "width": 1980,
+          "height": 1024
+        }
+      },
+      "firefox": {
+        "dimension": {
+          "width": 1980,
+          "height": 982
+        }
+      }
+    }
 }

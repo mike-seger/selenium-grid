@@ -3,7 +3,6 @@ package com.net128.test.selenium;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.skjolber.jackson.jsh.AnsiSyntaxHighlight;
@@ -11,7 +10,6 @@ import com.github.skjolber.jackson.jsh.DefaultSyntaxHighlighter;
 import com.github.skjolber.jackson.jsh.SyntaxHighlighter;
 import com.github.skjolber.jackson.jsh.SyntaxHighlightingJsonGenerator;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.OutputType;
@@ -32,10 +30,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.TimeZone;
-import java.util.logging.Level;
 
 import static org.junit.Assert.assertEquals;
 
@@ -44,32 +39,34 @@ public class RemoteWebDriverTest {
     private static final Logger logger = LoggerFactory.getLogger(RemoteWebDriverTest.class.getSimpleName());
     private static RemoteWebDriver chrome;
     private static RemoteWebDriver firefox;
-    private static LinkedHashMap<String, String> configuration;
+    private static Configuration configuration;
     private static File screenshotDir;
 
     @BeforeClass
     public static void setup() throws Exception {
         configuration=loadConfiguration();
-        screenshotDir=new File(configuration.get("screenshotDestination"));
+        screenshotDir=new File(configuration.screenshotDestination);
         screenshotDir.mkdirs();
         logger.info("Setting up drivers");
-        chrome = new RemoteWebDriver(new URL(configuration.get("hubUrl")), new ChromeOptions());
-        firefox = new RemoteWebDriver(new URL(configuration.get("hubUrl")), new FirefoxOptions());
+        chrome = new RemoteWebDriver(new URL(configuration.hubUrl), new ChromeOptions());
+        firefox = new RemoteWebDriver(new URL(configuration.hubUrl), new FirefoxOptions());
+        chrome.manage().window().setSize(configuration.browsers.chrome.dimension);
+        firefox.manage().window().setSize(configuration.browsers.firefox.dimension);
         logger.info("Done setting up drivers");
     }
 
     @Test
     public void testChrome() throws IOException {
-        chrome.get(configuration.get("homePage"));
-        assertEquals(configuration.get("expectedTitle"), chrome.getTitle());
-        takeScreenshot(chrome, configuration.get("labelChrome"));
+        chrome.get(configuration.homePage);
+        assertEquals(configuration.expectedTitle, chrome.getTitle());
+        takeScreenshot(chrome, "chrome");
     }
 
     @Test
     public void testFirefox() throws IOException {
-        firefox.get(configuration.get("homePage"));
-        assertEquals(configuration.get("expectedTitle"), firefox.getTitle());
-        takeScreenshot(firefox, configuration.get("labelFirefox"));
+        firefox.get(configuration.homePage);
+        assertEquals(configuration.expectedTitle, firefox.getTitle());
+        takeScreenshot(firefox, "firefox");
     }
 
     @AfterClass
@@ -95,15 +92,15 @@ public class RemoteWebDriverTest {
         return destFile;
     }
 
-    private static LinkedHashMap<String, String> loadConfiguration() throws IOException {
+    private static Configuration loadConfiguration() throws IOException {
         ObjectMapper mapper=new ObjectMapper();
         String configName = "configuration.json";
-        LinkedHashMap<String, String> configuration = mapper.readValue(RemoteWebDriverTest.class
-            .getResource("/"+configName), new TypeReference<LinkedHashMap<String,String>>() {});
+        Configuration configuration = mapper.readValue(RemoteWebDriverTest.class
+                .getResource("/"+configName), Configuration.class);
         if(new File(configName).exists())
             try (FileInputStream fis=new FileInputStream(configName))
             { mapper.readerForUpdating(configuration).readValue(fis); }
-        logger.info("Used Configuration:\n{}", toJson(configuration));
+        logger.info("Active Configuration:\n{}", toJson(configuration));
         return configuration;
     }
 
@@ -117,7 +114,7 @@ public class RemoteWebDriverTest {
                 .newBuilder()
                 .withField(AnsiSyntaxHighlight.BLUE)
                 .withString(AnsiSyntaxHighlight.GREEN)
-                .withNumber(AnsiSyntaxHighlight.MAGENTA)
+                .withNumber(AnsiSyntaxHighlight.CYAN)
                 .withCurlyBrackets(AnsiSyntaxHighlight.CYAN)
                 .withComma(AnsiSyntaxHighlight.WHITE)
                 .withColon(AnsiSyntaxHighlight.WHITE)

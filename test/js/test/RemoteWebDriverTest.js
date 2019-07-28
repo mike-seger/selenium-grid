@@ -23,19 +23,21 @@ describe('RemoteWebDriverTest', function() {
     logger.info("Setting up drivers");
     chrome = await new Builder().forBrowser('chrome').usingServer(configuration.hubUrl).build();
     firefox = await new Builder().forBrowser('firefox').usingServer(configuration.hubUrl).build();
+    chrome.manage().window().setRect(configuration.browsers.chrome.dimension);
+    firefox.manage().window().setRect(configuration.browsers.firefox.dimension);
     logger.info("Done setting up drivers\n");
   });
 
   it('Test Chrome', async function () {
     await chrome.get(configuration.homePage);
     expect(await chrome.getTitle()).to.equal(configuration.expectedTitle);
-    await takeScreenShot(chrome, configuration.labelChrome);
+    await takeScreenShot(chrome, "chrome");
   });
 
   it('Test Firefox', async function () {
     await firefox.get(configuration.homePage);
     expect(await firefox.getTitle()).to.equal(configuration.expectedTitle);
-    await takeScreenShot(firefox, configuration.labelFirefox);
+    await takeScreenShot(firefox, "firefox");
   });
 
   after(async () => {
@@ -76,7 +78,8 @@ describe('RemoteWebDriverTest', function() {
     result=JSON.stringify(configuration, null, 2);
     result=result.replace(/^/gm, "  ");
     result=result.replace(/([{}])/gm, "\u001b[36m$1\u001b[0m");
-    result=result.replace(/\":([^,]+)(,|$)/gm, "\":\u001b[32m$1\u001b[0m$2");
+    result=result.replace(/\": ([0-9.+-]+|true|false)(,|$)/gm, "\": \u001b[36m$1\u001b[0m$2");
+    result=result.replace(/\": ([^,]+)(,|$)/gm, "\": \u001b[32m$1\u001b[0m$2");
     result=result.replace(/("[a-zA-Z0-9]+"):/gm, "\u001b[34m$1\u001b[0m:");
     return result;
   }
