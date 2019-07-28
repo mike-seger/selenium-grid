@@ -1,6 +1,6 @@
 # selenium-grid
 
-Running a Selenium Grid with Firefox and Chrome in headless mode in 2
+Running a Selenium Grid with Firefox and Chrome browsers and drivers in 2
 minutes.  
 
  
