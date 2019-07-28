@@ -7,8 +7,8 @@ Each has its own instructions and contains a **configuration.json** within the s
     "hubUrl": "http://localhost:4444/wd/hub",
     "homePage": "http://www.google.com",
     "expectedTitle": "Google",
-    "chrome": "chrome",
-    "firefox": "firefox",
+    "labelChrome": "chrome",
+    "labelFirefox": "firefox",
     "screenshotDestination": "screenshots"
 }
 ```
