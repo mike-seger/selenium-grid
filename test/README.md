@@ -23,7 +23,7 @@ It contains a **configuration.json** within the test source directory. Here's an
   }
 }
 ```
-This will be used by default. You can override any of the configuration values by providing your own **configuration.json** in the the location of the according README.md. This will be merged with the default configuration when running the tests and is ignored by **.gitignore**.
+This will be used by default. You can override any of the configuration values by providing your own **configuration.json** in the same location as the according README.md. This will be merged with the default configuration when running the tests and is ignored by **.gitignore**.
 
 # Links
 https://seleniumhq.github.io/docs/  
