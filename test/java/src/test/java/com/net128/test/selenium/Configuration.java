@@ -2,8 +2,8 @@ package com.net128.test.selenium;
 
 import org.openqa.selenium.Dimension;
 
-@SuppressWarnings({"WeakerAccess", "unused"})
-public class Configuration {
+@SuppressWarnings({"WeakerAccess ","unused"})
+class Configuration {
     public String hubUrl;
     public String homePage;
     public String expectedTitle;
@@ -11,21 +11,19 @@ public class Configuration {
     public int initDriverDelayMs;
     public Browsers browsers;
 
-    public static class Browser {
-        public BrowserSize dimension;
-    }
-
-    public static class Browsers {
+    static class Browsers {
         public Browser chrome;
         public Browser firefox;
-    }
-
-    public static class BrowserSize extends Dimension {
-        public BrowserSize() {
-            super(0, 0);
-        }
-        public BrowserSize(int width, int height) {
-            super(width, height);
+        static class Browser {
+            public Size dimension;
+            static class Size extends Dimension {
+                public Size() {
+                    super(0, 0);
+                }
+                public Size(int width, int height) {
+                    super(width, height);
+                }
+            }
         }
     }
 }
