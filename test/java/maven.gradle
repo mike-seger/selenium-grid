@@ -1,0 +1,64 @@
+project.afterEvaluate {
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                pom {
+                   // name = 'selenium.grid.test'
+                    packaging = 'jar'
+                    artifactId = 'selenium.grid.test'
+                    description = project.description
+                    //noinspect  
+                    //noinspection GroovyAssignabilityCheck
+                    properties = [
+                        "project.build.sourceEncoding": "UTF-8",
+                        "project.reporting.outputEncoding": "UTF-8",
+                        "maven.compiler.source": "1.8",
+                        "maven.compiler.target": "1.8"
+                    ]
+                }
+                pom.withXml {
+                    final dependenciesNode = asNode().appendNode('dependencies')
+
+                    ext.addDependency = { Dependency dep, String scope ->
+                        if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified")
+                            return // ignore invalid dependencies
+
+                        final dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dep.group)
+                        dependencyNode.appendNode('artifactId', dep.name)
+                        dependencyNode.appendNode('version', dep.version)
+                        if ( scope != 'compile' ) dependencyNode.appendNode('scope', scope)
+
+                        /*if (!dep.transitive) {
+                            // If this dependency is transitive, we should force exclude all its dependencies them from the POM
+                            final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                            exclusionNode.appendNode('groupId', '*')
+                            exclusionNode.appendNode('artifactId', '*')
+                        } else if (!dep.properties.excludeRules.empty) {
+                            // Otherwise add specified exclude rules
+                            final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                            dep.properties.excludeRules.each { ExcludeRule rule ->
+                                exclusionNode.appendNode('groupId', rule.group ?: '*')
+                                exclusionNode.appendNode('artifactId', rule.module ?: '*')
+                            }
+                        }*/
+                    }
+
+                    configurations.compile.getDependencies().each { dep -> addDependency(dep, "compile") }
+                    configurations.testImplementation.getDependencies().each { dep -> addDependency(dep, "test") }
+                    configurations.testRuntimeOnly.getDependencies().each { dep -> addDependency(dep, "runtime") }
+                    configurations.testCompile.getDependencies().each { dep -> addDependency(dep, "test") }
+                    configurations.implementation.getDependencies().each { dep -> addDependency(dep, "runtime") }
+                }
+            }
+        }
+    }
+}
+
+model {
+    tasks.generatePomFileForMavenPublication {
+        destination = file("$buildDir/../pom.xml")
+    }
+}
+
+task pom(dependsOn: 'generatePomFileForMavenPublication')
