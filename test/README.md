@@ -1,4 +1,4 @@
-# Test Examples for Common Languages
+# Test Examples For Some Languages
 Every subdirectory provides a smoke test of the selenium grid and its supported drivers for a language such as Java or JS.  
 
 Each has its own instructions and contains a **configuration.json** within the test source directory. Here's an example:
