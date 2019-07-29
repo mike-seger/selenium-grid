@@ -57,16 +57,12 @@ public class RemoteWebDriverTest {
 
     @Test
     public void testChrome() throws IOException {
-        chrome.get(configuration.homePage);
-        assertEquals(configuration.expectedTitle, chrome.getTitle());
-        takeScreenshot(chrome, "chrome");
+        testDriver(chrome, "chrome");
     }
 
     @Test
     public void testFirefox() throws IOException {
-        firefox.get(configuration.homePage);
-        assertEquals(configuration.expectedTitle, firefox.getTitle());
-        takeScreenshot(firefox, "firefox");
+        testDriver(firefox, "firefox");
     }
 
     @AfterClass
@@ -75,6 +71,12 @@ public class RemoteWebDriverTest {
         chrome.quit();
         firefox.quit();
         logger.info("Done quitting drivers");
+    }
+
+    private void testDriver(RemoteWebDriver driver, String screenshotPrefix) throws IOException {
+        driver.get(configuration.homePage);
+        assertEquals(configuration.expectedTitle, driver.getTitle());
+        takeScreenshot(driver, screenshotPrefix);
     }
 
     private String getDateString() {
@@ -100,11 +102,11 @@ public class RemoteWebDriverTest {
         if(new File(configName).exists())
             try (FileInputStream fis=new FileInputStream(configName))
             { mapper.readerForUpdating(configuration).readValue(fis); }
-        logger.info("Active Configuration:\n{}", toJson(configuration));
+        logger.info("Active Configuration:\n{}", colorizedJson(configuration));
         return configuration;
     }
 
-    private static String toJson(Object o) {
+    private static String colorizedJson(Object o) {
         ObjectMapper om=new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         try {
             JsonFactory jsonFactory = new JsonFactory();

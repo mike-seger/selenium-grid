@@ -29,15 +29,11 @@ describe('RemoteWebDriverTest', function() {
   });
 
   it('Test Chrome', async function () {
-    await chrome.get(configuration.homePage);
-    expect(await chrome.getTitle()).to.equal(configuration.expectedTitle);
-    await takeScreenShot(chrome, "chrome");
+    await testDriver(chrome, "chrome");
   });
 
   it('Test Firefox', async function () {
-    await firefox.get(configuration.homePage);
-    expect(await firefox.getTitle()).to.equal(configuration.expectedTitle);
-    await takeScreenShot(firefox, "firefox");
+    await testDriver(firefox, "firefox");
   });
 
   after(async () => {
@@ -47,6 +43,12 @@ describe('RemoteWebDriverTest', function() {
     await firefox.quit();
     logger.info("Done quitting drivers");
   });
+
+  async function testDriver(driver, screenShotPrefix) {
+    await driver.get(configuration.homePage);
+    expect(await driver.getTitle()).to.equal(configuration.expectedTitle);
+    await takeScreenShot(driver, screenShotPrefix);
+  }
 
   function getDateString() {
     return new Date().toISOString().replace(/[Z:-]/g, "")
