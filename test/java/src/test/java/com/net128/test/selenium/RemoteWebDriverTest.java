@@ -9,9 +9,9 @@ import com.github.skjolber.jackson.jsh.AnsiSyntaxHighlight;
 import com.github.skjolber.jackson.jsh.DefaultSyntaxHighlighter;
 import com.github.skjolber.jackson.jsh.SyntaxHighlighter;
 import com.github.skjolber.jackson.jsh.SyntaxHighlightingJsonGenerator;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class RemoteWebDriverTest {
@@ -42,7 +42,7 @@ public class RemoteWebDriverTest {
     private static Configuration configuration;
     private static File screenshotDir;
 
-    @BeforeClass
+    @BeforeAll
     public static void setup() throws Exception {
         configuration=loadConfiguration();
         screenshotDir=new File(configuration.screenshotDestination);
@@ -65,7 +65,7 @@ public class RemoteWebDriverTest {
         testDriver(firefox, "firefox");
     }
 
-    @AfterClass
+    @AfterAll
     public static void teardown() {
         logger.info("Quitting drivers");
         chrome.quit();

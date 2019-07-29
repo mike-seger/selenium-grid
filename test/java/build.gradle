@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'com.adarshr.test-logger' version '1.7.0'
+    id 'com.github.ben-manes.versions' version '0.21.0'
 }
 
 repositories {
@@ -9,16 +10,29 @@ repositories {
 }
 
 dependencies {
-    compile 'org.seleniumhq.selenium:selenium-api:3.141.59'
-    compile 'org.seleniumhq.selenium:selenium-remote-driver:3.141.59'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.9.1'
-    compile 'com.github.skjolber.jackson:jackson-syntax-highlight:1.0.4'
-    compile 'ch.qos.logback:logback-classic:1.2.3'
-    compile 'org.slf4j:jul-to-slf4j:1.7.26'
-    
-    testImplementation("junit:junit:4.12")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.5.1")
-    testCompile 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    testCompile (
+        'org.seleniumhq.selenium:selenium-api:3.141.59',
+        'org.seleniumhq.selenium:selenium-remote-driver:3.141.59',
+        'org.seleniumhq.selenium:selenium-java:3.141.59',
+        'com.fasterxml.jackson.core:jackson-databind:2.9.9.2',
+        'com.github.skjolber.jackson:jackson-syntax-highlight:1.0.4',
+        'ch.qos.logback:logback-classic:1.2.3',
+        'org.slf4j:jul-to-slf4j:1.7.26',
+        'org.junit.jupiter:junit-jupiter-engine:5.5.1'
+    )
+}
+
+dependencyUpdates.resolutionStrategy {
+  componentSelection { rules ->
+    rules.all { ComponentSelection selection ->
+      boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm', 'preview', 'b', 'ea', 'pr'].any { qualifier ->
+        selection.candidate.version ==~ /(?i).*[.-]$qualifier[.\d-+]*/
+      }
+      if (rejected) {
+        selection.reject('Release candidate')
+      }
+    }
+  }
 }
 
 group = 'net128.com'

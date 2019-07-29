@@ -7,7 +7,7 @@ project.afterEvaluate {
                     packaging = 'jar'
                     artifactId = 'selenium.grid.test'
                     description = project.description
-                    //noinspect  
+                    //noinspect
                     //noinspection GroovyAssignabilityCheck
                     properties = [
                         "project.build.sourceEncoding": "UTF-8",
@@ -15,6 +15,7 @@ project.afterEvaluate {
                         "maven.compiler.source": "1.8",
                         "maven.compiler.target": "1.8"
                     ]
+
                 }
                 pom.withXml {
                     final dependenciesNode = asNode().appendNode('dependencies')
@@ -49,6 +50,13 @@ project.afterEvaluate {
                     configurations.testRuntimeOnly.getDependencies().each { dep -> addDependency(dep, "runtime") }
                     configurations.testCompile.getDependencies().each { dep -> addDependency(dep, "test") }
                     configurations.implementation.getDependencies().each { dep -> addDependency(dep, "runtime") }
+
+                    final buildNode = asNode().appendNode('build')
+                    final pluginsNode = buildNode.appendNode('plugins')
+                    final pluginNode = pluginsNode.appendNode('plugin')
+                    pluginNode.appendNode('groupId', 'org.apache.maven.plugins')
+                    pluginNode.appendNode('artifactId', 'maven-surefire-plugin')
+                    pluginNode.appendNode('version', '2.22.1')
                 }
             }
         }
