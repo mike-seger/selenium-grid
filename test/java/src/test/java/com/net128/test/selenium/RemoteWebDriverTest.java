@@ -3,6 +3,7 @@ package com.net128.test.selenium;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.skjolber.jackson.jsh.AnsiSyntaxHighlight;
@@ -34,7 +35,7 @@ import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SuppressWarnings("ResultOfMethodCallIgnored")
+@SuppressWarnings({"unused", "ResultOfMethodCallIgnored", })
 public class RemoteWebDriverTest {
     private static final Logger logger = LoggerFactory.getLogger(RemoteWebDriverTest.class.getSimpleName());
     private static RemoteWebDriver chrome;
@@ -43,7 +44,7 @@ public class RemoteWebDriverTest {
     private static File screenshotDir;
 
     @BeforeAll
-    public static void setup() throws Exception {
+    static void setup() throws Exception {
         configuration=loadConfiguration();
         screenshotDir=new File(configuration.screenshotDestination);
         screenshotDir.mkdirs();
@@ -56,17 +57,17 @@ public class RemoteWebDriverTest {
     }
 
     @Test
-    public void testChrome() throws IOException {
+    void testChrome() throws IOException {
         testDriver(chrome, "chrome");
     }
 
     @Test
-    public void testFirefox() throws IOException {
+    void testFirefox() throws IOException {
         testDriver(firefox, "firefox");
     }
 
     @AfterAll
-    public static void teardown() {
+    static void teardown() {
         logger.info("Quitting drivers");
         chrome.quit();
         firefox.quit();
@@ -95,7 +96,7 @@ public class RemoteWebDriverTest {
     }
 
     private static Configuration loadConfiguration() throws IOException {
-        ObjectMapper mapper=new ObjectMapper();
+        ObjectMapper mapper=new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String configName = "configuration.json";
         Configuration configuration = mapper.readValue(RemoteWebDriverTest.class
                 .getResource("/"+configName), Configuration.class);
