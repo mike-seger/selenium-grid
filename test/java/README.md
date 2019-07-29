@@ -4,7 +4,7 @@
 gradle clean test
 ```
 
-## or using maven (legacy method)
+## ... or using maven (legacy method)
 ```
 # generate the pom.xml where you have gradle installed
 gradle pom
