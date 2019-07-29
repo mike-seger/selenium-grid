@@ -6,7 +6,7 @@ gradle clean test
 
 ## or using maven (legacy method)
 ```
-# generate the pom.xml in a modern environment
+# generate the pom.xml where you have gradle installed
 gradle pom
 
 # and then continue using the pom.xml by running
