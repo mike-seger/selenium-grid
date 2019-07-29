@@ -4,7 +4,7 @@
 gradle clean test
 ```
 
-## if you are stuck with maven legacy
+## maven (legacy method)
 ```
 # generate the pom.xml in a modern environment
 gradle pom
