@@ -12,6 +12,7 @@ import com.github.skjolber.jackson.jsh.SyntaxHighlighter;
 import com.github.skjolber.jackson.jsh.SyntaxHighlightingJsonGenerator;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -57,11 +58,13 @@ public class RemoteWebDriverTest {
     }
 
     @Test
+    @DisplayName("Test Chrome")
     void testChrome() throws IOException {
         testDriver(chrome, "chrome");
     }
 
     @Test
+    @DisplayName("Test Firefox")
     void testFirefox() throws IOException {
         testDriver(firefox, "firefox");
     }
