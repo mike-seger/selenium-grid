@@ -1,4 +1,4 @@
-# selenium-grid
+# selenium-grid-howto
 
 Running a Selenium grid with Firefox and Chrome browsers and drivers in 5
 minutes.  
