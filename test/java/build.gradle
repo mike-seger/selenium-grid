@@ -1,8 +1,8 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id 'com.adarshr.test-logger' version '1.7.0'
-    id 'com.github.ben-manes.versions' version '0.21.0'
+    id 'com.adarshr.test-logger' version '3.0.0'
+    id 'com.github.ben-manes.versions' version '0.38.0'
 }
 
 repositories {
@@ -10,15 +10,15 @@ repositories {
 }
 
 dependencies {
-    testCompile (
+    testImplementation (
         'org.seleniumhq.selenium:selenium-api:3.141.59',
         'org.seleniumhq.selenium:selenium-remote-driver:3.141.59',
         'org.seleniumhq.selenium:selenium-java:3.141.59',
-        'com.fasterxml.jackson.core:jackson-databind:2.9.9.2',
-        'com.github.skjolber.jackson:jackson-syntax-highlight:1.0.4',
+        'com.fasterxml.jackson.core:jackson-databind:2.12.3',
+        'com.github.skjolber.jackson:jackson-syntax-highlight:1.0.6',
         'ch.qos.logback:logback-classic:1.2.3',
-        'org.slf4j:jul-to-slf4j:1.7.26',
-        'org.junit.jupiter:junit-jupiter-engine:5.5.1'
+        'org.slf4j:jul-to-slf4j:1.7.30',
+        'org.junit.jupiter:junit-jupiter-engine:5.7.1'
     )
 }
 
