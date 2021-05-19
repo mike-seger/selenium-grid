@@ -10,8 +10,7 @@ services:
     image: selenium/node-chrome:3.141.59
     restart: always
     container_name: selenium-node-chrome
-    volumes:
-      - /dev/shm:/dev/shm
+    shm_size: '2gb'
     depends_on:
       - selenium-hub
     environment:
@@ -25,8 +24,7 @@ services:
     image: selenium/node-firefox:3.141.59
     restart: always
     container_name: selenium-node-firefox
-    volumes:
-      - /dev/shm:/dev/shm
+    shm_size: '2gb'
     depends_on:
       - selenium-hub
     environment:
@@ -36,3 +34,7 @@ services:
       - SCREEN_HEIGHT=1080
       - SCREEN_DEPTH=24
       - SCREEN_DPI=96
+  web:
+    image: nginx:1.19-alpine
+    restart: always
+    container_name: selenium-test-web-server

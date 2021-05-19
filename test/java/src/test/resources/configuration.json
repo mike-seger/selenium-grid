@@ -1,8 +1,14 @@
 {
   "hubUrl": "http://localhost:4444/wd/hub",
-  "homePage": "http://wikipedia.org/",
-  "expectedTitle": "Wikipedia",
+  "internalPage": "http://web/",
+  "expectedInternalTitle": "Welcome to nginx!",
+  "externalPage": "https://wikipedia.org/",
+  "expectedExternalTitle": "Wikipedia",
   "screenshotDestination": "screenshots",
+  "pages": [
+    { "url": "http://web/", "title": "Welcome to nginx!" },
+    { "url": "https://wikipedia.org/", "title": "Wikipedia" }
+  ],
   "browsers": {
     "chrome": {
       "dimension": {
