@@ -29,7 +29,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class PageTest {
 	private static final Logger logger = LoggerFactory.getLogger(PageTest.class.getSimpleName());
-	private static final Map<String, RemoteWebDriver> driverMap = new TreeMap<>();
+	private static final Map<String, RemoteWebDriver> driverMap = new LinkedHashMap<>();
 	private static Configuration configuration;
 	private static File screenshotDir;
 
@@ -42,7 +42,7 @@ public class PageTest {
 		logger.info("Setting up drivers");
 		addDriver(new ChromeOptions(), configuration.browsers.chrome.dimension);
 		addDriver(new FirefoxOptions(), configuration.browsers.firefox.dimension);
-		logger.info("Done setting up drivers");
+		logger.info("Done setting up drivers: {}", driverMap.keySet());
 	}
 
 	private static void addDriver(Capabilities capabilities, Dimension dimension) {
@@ -53,7 +53,7 @@ public class PageTest {
 
 	@AfterAll
 	static void teardown() {
-		logger.info("Quitting drivers");
+		logger.info("Quitting drivers: {}", driverMap.keySet());
 		driverMap.values().forEach(RemoteWebDriver::quit);
 		logger.info("Done quitting drivers");
 	}
