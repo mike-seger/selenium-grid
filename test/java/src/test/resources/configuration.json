@@ -1,26 +1,12 @@
 {
   "hubUrl": "http://localhost:4444/wd/hub",
-  "internalPage": "http://web/",
-  "expectedInternalTitle": "Welcome to nginx!",
-  "externalPage": "https://wikipedia.org/",
-  "expectedExternalTitle": "Wikipedia",
   "screenshotDestination": "screenshots",
   "pages": [
     { "url": "http://web/", "title": "Welcome to nginx!" },
     { "url": "https://wikipedia.org/", "title": "Wikipedia" }
   ],
   "browsers": {
-    "chrome": {
-      "dimension": {
-        "width": 1980,
-        "height": 1024
-      }
-    },
-    "firefox": {
-      "dimension": {
-        "width": 1980,
-        "height": 982
-      }
-    }
+    "chrome": { "dimension": { "width": 1980, "height": 1024 }},
+    "firefox": { "dimension": { "width": 1980, "height": 982 }}
   }
 }

@@ -27,8 +27,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class RemoteWebDriverTest {
-	private static final Logger logger = LoggerFactory.getLogger(RemoteWebDriverTest.class.getSimpleName());
+public class PageTest {
+	private static final Logger logger = LoggerFactory.getLogger(PageTest.class.getSimpleName());
 	private static final Map<String, RemoteWebDriver> driverMap = new TreeMap<>();
 	private static Configuration configuration;
 	private static File screenshotDir;
@@ -58,9 +58,9 @@ public class RemoteWebDriverTest {
 		logger.info("Done quitting drivers");
 	}
 
-	@ParameterizedTest(name = "{index} {0}, {1}, {2}")
+	@ParameterizedTest(name = "{index} {1}, {2}, {3}")
 	@MethodSource
-	public void testPages(String screenshotPrefix, String pageUrl, String pageTitle, RemoteWebDriver driver) throws IOException {
+	public void testPages(RemoteWebDriver driver, String screenshotPrefix, String pageUrl, String pageTitle) throws IOException {
 		driver.get(pageUrl);
 		assertEquals(pageTitle, driver.getTitle());
 		assertThat(takeScreenshot(driver, screenshotPrefix)).exists();
@@ -70,7 +70,7 @@ public class RemoteWebDriverTest {
 	static Stream<Arguments> testPages() {
 		return driverMap.entrySet().stream().flatMap(entry ->
 			configuration.pages.stream().map(page ->
-				arguments(entry.getKey(), page.url, page.title, entry.getValue())));
+				arguments(entry.getValue(), entry.getKey(), page.url, page.title)));
 	}
 
 	private String getDateString() {

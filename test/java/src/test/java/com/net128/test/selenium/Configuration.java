@@ -83,7 +83,7 @@ class Configuration {
     public static Configuration load() throws IOException {
         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String configName = "configuration.json";
-        Configuration configuration = mapper.readValue(RemoteWebDriverTest.class
+        Configuration configuration = mapper.readValue(PageTest.class
                 .getResource("/"+configName), Configuration.class);
         if(new File(configName).exists())
             try (FileInputStream fis=new FileInputStream(configName))
