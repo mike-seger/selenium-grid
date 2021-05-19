@@ -48,7 +48,7 @@ public class PageTest {
 	private static void addDriver(Capabilities capabilities, Dimension dimension) {
 		RemoteWebDriver driver = new RemoteWebDriver(configuration.hubUrl, capabilities);
 		driver.manage().window().setSize(dimension);
-		driverMap.put(capabilities.getClass().getSimpleName().replaceAll("Options$", ""), driver);
+		driverMap.put(capabilities.getBrowserName(), driver);
 	}
 
 	@AfterAll
