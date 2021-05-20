@@ -10,6 +10,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.Augmenter;
@@ -43,8 +45,8 @@ public class PageTest {
 		screenshotDir.mkdirs();
 		logger.info("Setting up drivers");
 		addDriver(new ChromeOptions(), configuration.browsers.get("chrome").dimension);
-		//addDriver(new FirefoxOptions(), configuration.browsers.get("firefox").dimension);
-		//addDriver(new OperaOptions(), configuration.browsers.get("opera").dimension);
+		addDriver(new FirefoxOptions(), configuration.browsers.get("firefox").dimension);
+		addDriver(new OperaOptions(), configuration.browsers.get("opera").dimension);
 		//addDriver(new EdgeOptions(), configuration.browsers.get("edge").dimension);
 		logger.info("Done setting up drivers: {}", driverMap.keySet());
 	}

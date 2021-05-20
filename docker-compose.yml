@@ -36,7 +36,8 @@ services:
       - SCREEN_DEPTH=24
       - SCREEN_DPI=96
   edge:
-    image: selenium/node-edge:91.0.838.3
+    image: selenium/node-edge:4.0
+#    image: selenium/node-edge:91.0
     restart: always
     container_name: selenium-node-edge
     shm_size: '2gb'
