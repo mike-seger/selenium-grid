@@ -30,13 +30,13 @@ project.afterEvaluate {
                         dependencyNode.appendNode('groupId', dep.group)
                         dependencyNode.appendNode('artifactId', dep.name)
                         dependencyNode.appendNode('version', dep.version)
-                        if ( scope != 'compile' ) dependencyNode.appendNode('scope', scope)
+                        if ( scope != 'implementation' ) dependencyNode.appendNode('scope', scope)
                     }
 
-                    configurations.compile.getDependencies().each { dep -> addDependency(dep, "compile") }
+                    configurations.implementation.getDependencies().each { dep -> addDependency(dep, "compile") }
                     configurations.testImplementation.getDependencies().each { dep -> addDependency(dep, "test") }
                     configurations.testRuntimeOnly.getDependencies().each { dep -> addDependency(dep, "runtime") }
-                    configurations.testCompile.getDependencies().each { dep -> addDependency(dep, "test") }
+                    configurations.testImplementation.getDependencies().each { dep -> addDependency(dep, "test") }
                     configurations.implementation.getDependencies().each { dep -> addDependency(dep, "runtime") }
 
                     final buildNode = asNode().appendNode('build')
