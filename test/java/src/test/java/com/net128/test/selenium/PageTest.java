@@ -60,14 +60,14 @@ public class PageTest {
 
 	@ParameterizedTest(name = "{index} {1}, {2}, {3}")
 	@MethodSource
-	public void testPages(RemoteWebDriver driver, String screenshotPrefix, String pageUrl, String pageTitle) throws IOException {
+	public void testPage(RemoteWebDriver driver, String screenshotPrefix, String pageUrl, String pageTitle) throws IOException {
 		driver.get(pageUrl);
 		assertEquals(pageTitle, driver.getTitle());
 		assertThat(takeScreenshot(driver, screenshotPrefix)).exists();
 	}
 
 	@SuppressWarnings("unused")
-	static Stream<Arguments> testPages() {
+	private static Stream<Arguments> testPage() {
 		return driverMap.entrySet().stream().flatMap(entry ->
 			configuration.pages.stream().map(page ->
 				arguments(entry.getValue(), entry.getKey(), page.url, page.title)));
