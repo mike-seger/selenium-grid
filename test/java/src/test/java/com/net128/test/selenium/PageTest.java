@@ -10,7 +10,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
@@ -41,14 +42,18 @@ public class PageTest {
 		//noinspection ResultOfMethodCallIgnored
 		screenshotDir.mkdirs();
 		logger.info("Setting up drivers");
-		addDriver(new ChromeOptions(), configuration.browsers.chrome.dimension);
-		addDriver(new FirefoxOptions(), configuration.browsers.firefox.dimension);
+		addDriver(new ChromeOptions(), configuration.browsers.get("chrome").dimension);
+		//addDriver(new FirefoxOptions(), configuration.browsers.get("firefox").dimension);
+		//addDriver(new OperaOptions(), configuration.browsers.get("opera").dimension);
+		//addDriver(new EdgeOptions(), configuration.browsers.get("edge").dimension);
 		logger.info("Done setting up drivers: {}", driverMap.keySet());
 	}
 
 	private static void addDriver(Capabilities capabilities, Dimension dimension) {
 		RemoteWebDriver driver = new RemoteWebDriver(configuration.hubUrl, capabilities);
-		driver.manage().window().setSize(dimension);
+		if(dimension!=null) {
+			driver.manage().window().setSize(dimension);
+		}
 		driver.manage().timeouts().pageLoadTimeout(configuration.maxPageLoadDuration.getSeconds(), TimeUnit.SECONDS);
 		driverMap.put(capabilities.getBrowserName(), driver);
 	}

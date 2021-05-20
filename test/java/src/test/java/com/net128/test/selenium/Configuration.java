@@ -22,35 +22,40 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 class Configuration {
     public URL hubUrl;
     public String screenshotDestination;
     public List<Page> pages;
     public Duration maxPageLoadDuration;
-    public Browsers browsers;
+    public Map<String, Browser> browsers = new TreeMap<>();
     private final static ObjectMapper objectMapper = new ObjectMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .enable(SerializationFeature.INDENT_OUTPUT)
-            .registerModule(new JavaTimeModule());
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .enable(SerializationFeature.INDENT_OUTPUT)
+        .registerModule(new JavaTimeModule());
 
-    static class Browsers {
-        public Browser chrome;
-        public Browser firefox;
-        static class Browser {
-            public Size dimension;
-            @SuppressWarnings("unused")
-            static class Size extends Dimension {
-                public Size() {
-                    super(0, 0);
-                }
-                public Size(int width, int height) {
-                    super(width, height);
-                }
+    static class Browser {
+        public Size dimension;
+        @SuppressWarnings("unused")
+        static class Size extends Dimension {
+            public Size() {
+                super(0, 0);
+            }
+            public Size(int width, int height) {
+                super(width, height);
             }
         }
     }
+
+    /*
+    static class Browsers {
+        public Browser chrome;
+        public Browser firefox;
+    }*/
 
     static class Page {
         public String url;
