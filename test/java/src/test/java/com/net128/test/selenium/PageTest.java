@@ -60,10 +60,10 @@ public class PageTest {
 
 	@ParameterizedTest(name = "{index} {1}, {2}, {3}")
 	@MethodSource
-	public void testPage(RemoteWebDriver driver, String screenshotPrefix, String pageUrl, String pageTitle) throws IOException {
+	public void testPage(RemoteWebDriver driver, String browserName, String pageUrl, String pageTitle) throws IOException {
 		driver.get(pageUrl);
 		assertEquals(pageTitle, driver.getTitle());
-		assertThat(takeScreenshot(driver, screenshotPrefix)).exists();
+		assertThat(takeScreenshot(driver, browserName)).exists();
 	}
 
 	@SuppressWarnings("unused")
