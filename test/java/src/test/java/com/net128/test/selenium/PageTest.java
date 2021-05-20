@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,6 +49,7 @@ public class PageTest {
 	private static void addDriver(Capabilities capabilities, Dimension dimension) {
 		RemoteWebDriver driver = new RemoteWebDriver(configuration.hubUrl, capabilities);
 		driver.manage().window().setSize(dimension);
+		driver.manage().timeouts().pageLoadTimeout(configuration.maxPageLoadDuration.getSeconds(), TimeUnit.SECONDS);
 		driverMap.put(capabilities.getBrowserName(), driver);
 	}
 

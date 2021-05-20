@@ -1,5 +1,6 @@
 {
   "hubUrl": "http://localhost:4444/wd/hub",
+  "maxPageLoadDuration": "PT10S",
   "screenshotDestination": "screenshots",
   "pages": [
     { "url": "http://web/", "title": "Welcome to nginx!" },
