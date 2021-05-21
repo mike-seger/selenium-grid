@@ -45,7 +45,7 @@ public class PageTest {
 		screenshotDir.mkdirs();
 		logger.info("Setting up drivers");
 		addDriver(new ChromeOptions(), configuration.browsers.get("chrome").dimension);
-		addDriver(new FirefoxOptions(), configuration.browsers.get("firefox").dimension);
+		//addDriver(new FirefoxOptions(), configuration.browsers.get("firefox").dimension);
 		addDriver(new OperaOptions(), configuration.browsers.get("opera").dimension);
 		//addDriver(new EdgeOptions(), configuration.browsers.get("edge").dimension);
 		logger.info("Done setting up drivers: {}", driverMap.keySet());
@@ -71,7 +71,7 @@ public class PageTest {
 	@MethodSource
 	public void testPage(RemoteWebDriver driver, String browserName, String pageUrl, String pageTitle) throws IOException {
 		driver.get(pageUrl);
-		assertEquals(pageTitle, driver.getTitle());
+		assertThat(driver.getTitle()).matches(pageTitle);
 		assertThat(takeScreenshot(driver, browserName)).exists();
 	}
 
