@@ -11,9 +11,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.opera.OperaOptions;
-import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
@@ -23,12 +20,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TimeZone;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class PageTest {
@@ -45,9 +44,7 @@ public class PageTest {
 		screenshotDir.mkdirs();
 		logger.info("Setting up drivers");
 		addDriver(new ChromeOptions(), configuration.browsers.get("chrome").dimension);
-		//addDriver(new FirefoxOptions(), configuration.browsers.get("firefox").dimension);
-		addDriver(new OperaOptions(), configuration.browsers.get("opera").dimension);
-		//addDriver(new EdgeOptions(), configuration.browsers.get("edge").dimension);
+		addDriver(new FirefoxOptions(), configuration.browsers.get("firefox").dimension);
 		logger.info("Done setting up drivers: {}", driverMap.keySet());
 	}
 
@@ -56,7 +53,7 @@ public class PageTest {
 		if(dimension!=null) {
 			driver.manage().window().setSize(dimension);
 		}
-		driver.manage().timeouts().pageLoadTimeout(configuration.maxPageLoadDuration.getSeconds(), TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(configuration.maxPageLoadDuration.getSeconds()));
 		driverMap.put(capabilities.getBrowserName(), driver);
 	}
 

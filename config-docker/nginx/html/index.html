@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+<script src="ua-parser.min.js"></script>
+</head>
+    <body>
+        <pre id="info"></pre>
+        <script>
+            var parser = new UAParser()
+            console.log(parser.getResult())
+            let info=document.getElementById("info")
+            info.innerHTML=JSON.stringify(parser.getResult(), undefined, 2)
+        </script>
+    </body>
+</html>

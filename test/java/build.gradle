@@ -1,7 +1,7 @@
 plugins {
 	id "java"
 	id "maven-publish"
-	id "com.adarshr.test-logger" version "3.0.0"
+	id "com.adarshr.test-logger" version "3.2.0"
 	id "com.github.ben-manes.versions" version "0.38.0"
 }
 
@@ -10,9 +10,10 @@ repositories {
 }
 
 ext {
-	seleniumVersion = "3.141.59"
-	jupiterVersion = "5.7.1"
-	jacksonVersion = "2.12.3"
+	seleniumVersion = "4.6.0"
+//	seleniumVersion = "3.141.59"
+	jupiterVersion = "5.9.1"
+	jacksonVersion = "2.14.0"
 }
 
 dependencies {
@@ -22,28 +23,29 @@ dependencies {
 			"org.seleniumhq.selenium:selenium-java:${seleniumVersion}",
 			"com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
 			"com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}",
-			"com.github.skjolber.jackson:jackson-syntax-highlight:1.0.6",
-			"ch.qos.logback:logback-classic:1.2.3",
-			"org.slf4j:jul-to-slf4j:1.7.30",
+			"com.github.skjolber.jackson:jackson-syntax-highlight:1.0.7",
+			"ch.qos.logback:logback-classic:1.4.5",
+			"org.slf4j:jul-to-slf4j:2.0.5",
 			"org.junit.jupiter:junit-jupiter-api:${jupiterVersion}",
 			"org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}",
 			"org.junit.jupiter:junit-jupiter-params:${jupiterVersion}",
-			"org.assertj:assertj-core:3.19.0",
+			"org.assertj:assertj-core:3.23.1",
 	)
 }
 
-dependencyUpdates.resolutionStrategy {
-	componentSelection { rules ->
-		rules.all { ComponentSelection selection ->
-			boolean rejected = ["alpha", "beta", "rc", "cr", "m", "preview", "b", "ea", "pr"].any { qualifier ->
-				selection.candidate.version ==~ /(?i).*[.-]$qualifier[.\d-+]*/
-			}
-			if (rejected) {
-				selection.reject("Release candidate")
-			}
-		}
-	}
-}
+
+//dependencyUpdates.resolutionStrategy {
+//	componentSelection { rules ->
+//		rules.all { ComponentSelection selection ->
+//			boolean rejected = ["alpha", "beta", "rc", "cr", "m", "preview", "b", "ea", "pr"].any { qualifier ->
+//				selection.candidate.version ==~ /(?i).*[.-]$qualifier[.\d-+]*/
+//			}
+//			if (rejected) {
+//				selection.reject("Release candidate")
+//			}
+//		}
+//	}
+//}
 
 group = "net128.com"
 version = "1.0.0"
@@ -67,5 +69,3 @@ test {
 task sourceJar(type: Jar) {
 	from sourceSets.main.allJava
 }
-
-apply from: "maven.gradle"

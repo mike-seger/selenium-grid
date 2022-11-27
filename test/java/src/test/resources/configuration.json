@@ -3,13 +3,11 @@
   "maxPageLoadDuration": "PT10S",
   "screenshotDestination": "screenshots",
   "pages": [
-    { "url": "http://web/", "title": "Welcome to nginx!" },
-    { "url": "https://wikipedia.org/", "title": "Wikipedia" }
+    { "url": "https://wikipedia.org/", "title": "Wikipedia" },
+    { "url": "http://localhost:8000/", "title": "BrowserInfo" }
   ],
   "browsers": {
     "chrome": { "dimension": { "width": 1920, "height": 1196 }},
-    "firefox": { "dimension": { "width": 1920, "height": 1154 }},
-    "edge": { "dimension": { "width": 1920, "height": 1080 }},
-    "opera": { "dimension": { "width": 1962, "height": 1183 }}
+    "firefox": { "dimension": { "width": 1920, "height": 1154 }}
   }
 }
