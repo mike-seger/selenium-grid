@@ -68,7 +68,10 @@ public class PageTest {
 	public void testPage(RemoteWebDriver driver, String browserName, String pageUrl, String pageTitle) throws IOException {
 		driver.get(pageUrl);
 		assertThat(driver.getTitle()).matches(pageTitle);
-		assertThat(takeScreenshot(driver, browserName)).exists();
+		assertThat(takeScreenshot(driver,
+		browserName+"-"+ pageTitle.toLowerCase()
+				.replaceAll("[ \\\\/:.-]+", "_")
+			)).exists();
 	}
 
 	@SuppressWarnings("unused")
@@ -85,9 +88,8 @@ public class PageTest {
 	}
 
 	private File takeScreenshot(RemoteWebDriver driver, String namePrefix) throws IOException {
-		TakesScreenshot ts = (TakesScreenshot) driver;
 		File destFile = new File(screenshotDir, namePrefix + "-" + getDateString() + ".png");
-		Files.write(destFile.toPath(), ts.getScreenshotAs(OutputType.BYTES));
+		Files.write(destFile.toPath(), ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
 		return destFile;
 	}
 }

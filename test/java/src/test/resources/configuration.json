@@ -4,7 +4,8 @@
   "screenshotDestination": "screenshots",
   "pages": [
     { "url": "https://wikipedia.org/", "title": "Wikipedia" },
-    { "url": "http://web/", "title": "UA Info" }
+    { "url": "http://web/", "title": "UA Info" },
+    { "url": "http://host.docker.internal:8000/", "title": "UA Info" }
   ],
   "browsers": {
     "chrome": { "dimension": { "width": 1920, "height": 1196 }},
