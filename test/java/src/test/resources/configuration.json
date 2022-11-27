@@ -4,7 +4,7 @@
   "screenshotDestination": "screenshots",
   "pages": [
     { "url": "https://wikipedia.org/", "title": "Wikipedia" },
-    { "url": "http://localhost:8000/", "title": "BrowserInfo" }
+    { "url": "http://web/", "title": "UA Info" }
   ],
   "browsers": {
     "chrome": { "dimension": { "width": 1920, "height": 1196 }},

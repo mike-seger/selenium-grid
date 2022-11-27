@@ -11,7 +11,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,8 +85,7 @@ public class PageTest {
 	}
 
 	private File takeScreenshot(RemoteWebDriver driver, String namePrefix) throws IOException {
-		Augmenter augmenter = new Augmenter();
-		TakesScreenshot ts = (TakesScreenshot) augmenter.augment(driver);
+		TakesScreenshot ts = (TakesScreenshot) driver;
 		File destFile = new File(screenshotDir, namePrefix + "-" + getDateString() + ".png");
 		Files.write(destFile.toPath(), ts.getScreenshotAs(OutputType.BYTES));
 		return destFile;
