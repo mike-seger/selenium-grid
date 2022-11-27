@@ -18,7 +18,8 @@ $ docker-compose down
 ```
 
 # Links
-https://github.com/SeleniumHQ/docker-selenium  
-https://jitpack.io/p/SeleniumHQ/docker-selenium  
-https://hub.docker.com/u/selenium  
-https://robotninja.com/blog/introduction-using-selenium-docker-containers-end-end-testing/
+- https://github.com/SeleniumHQ/docker-selenium  
+- https://jitpack.io/p/SeleniumHQ/docker-selenium  
+- https://hub.docker.com/u/selenium  
+- https://robotninja.com/blog/introduction-using-selenium-docker-containers-end-end-testing/
+- https://stackoverflow.com/questions/24319662/from-inside-of-a-docker-container-how-do-i-connect-to-the-localhost-of-the-mach
