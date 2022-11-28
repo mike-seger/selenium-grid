@@ -7,7 +7,8 @@ services:
     ports:
       - "4442:4442"
       - "4443:4443"
-      - "4444:4444"      
+      - "4444:4444"
+            
   chrome:
     image: selenium/node-chrome:4.6.0
     restart: always
@@ -24,6 +25,18 @@ services:
       - SCREEN_DEPTH=24
       - SCREEN_DPI=96
       - DBUS_SESSION_BUS_ADDRESS=/dev/null
+
+  chrome-standalone:
+    image: selenium/standalone-chrome:4.6.0
+    restart: always
+    container_name: selenium-node-chrome-standalone
+    shm_size: 2gb
+    ports:
+      - "5442:4442"
+      - "5443:4443"
+      - "5444:4444"      
+    privileged: true
+        
   firefox:
     image: selenium/node-firefox:4.6.0
     restart: always
