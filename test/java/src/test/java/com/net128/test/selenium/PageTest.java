@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -89,7 +88,7 @@ public class PageTest {
 
 	private File takeScreenshot(RemoteWebDriver driver, String namePrefix) throws IOException {
 		File destFile = new File(screenshotDir, namePrefix + "-" + getDateString() + ".png");
-		Files.write(destFile.toPath(), ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
+		Files.write(destFile.toPath(), driver.getScreenshotAs(OutputType.BYTES));
 		return destFile;
 	}
 }
